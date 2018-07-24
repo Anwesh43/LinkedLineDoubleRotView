@@ -136,6 +136,7 @@ class LineDoubleRotView(ctx : Context) : View(ctx) {
         fun draw(canvas : Canvas, paint : Paint) {
             paint.color = Color.parseColor("#0097A7")
             canvas.drawRotLineNode(i, state.scale, paint)
+            next?.draw(canvas, paint)
         }
     }
 
