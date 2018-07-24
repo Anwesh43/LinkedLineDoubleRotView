@@ -24,7 +24,7 @@ fun Canvas.drawRotLineNode(i : Int, scale : Float, paint : Paint) {
     paint.strokeCap = Paint.Cap.ROUND
     save()
     translate(i * gap + gap/2, h/2)
-    drawLine(gap/2 * sc1, -h/3, gap/2 * sc2, h/3, paint)
+    drawLine(gap * sc1, -h/3, gap * sc2, h/3, paint)
     restore()
 }
 
