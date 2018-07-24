@@ -4,6 +4,7 @@ package com.anwesh.uiprojects.linedoublerotview
  * Created by anweshmishra on 24/07/18.
  */
 
+import android.app.Activity
 import android.graphics.Paint
 import android.graphics.Canvas
 import android.view.View
@@ -182,6 +183,15 @@ class LineDoubleRotView(ctx : Context) : View(ctx) {
             ldr.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+
+        fun create(activity : Activity) : LineDoubleRotView {
+            val view : LineDoubleRotView = LineDoubleRotView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
