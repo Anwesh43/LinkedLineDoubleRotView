@@ -157,4 +157,27 @@ class LineDoubleRotView(ctx : Context) : View(ctx) {
             curr.draw(canvas, paint)
         }
     }
+
+    data class Renderer(var view : LineDoubleRotView) {
+
+        val ldr : LinkedLDR = LinkedLDR(0)
+
+        val animator : Animator = Animator(view)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#BDBDBD"))
+            ldr.draw(canvas, paint)
+            animator.animate {
+                ldr.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            ldr.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
