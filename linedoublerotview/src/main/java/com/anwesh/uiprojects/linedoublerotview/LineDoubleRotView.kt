@@ -19,7 +19,7 @@ fun Canvas.drawRotLineNode(i : Int, scale : Float, paint : Paint) {
     val sc1 : Float = Math.min(0.5f, scale) * 2
     val sc2 : Float = Math.min(0.5f, Math.max(0f, scale - 0.5f)) * 2
     paint.strokeWidth = Math.min(w, h) / 60
-    paint.strokeCap = Paint.Cap.ROUND 
+    paint.strokeCap = Paint.Cap.ROUND
     save()
     translate(i * gap + gap/2, h/2)
     drawLine(gap/2 * sc1, -h/3, gap/2 * sc2, h/3, paint)
@@ -87,6 +87,44 @@ class LineDoubleRotView(ctx : Context) : View(ctx) {
             if (animated) {
                 animated = false
             }
+        }
+    }
+
+    data class LDRNode (var i : Int, val state : State = State()) {
+
+        private var next : LDRNode? = null
+
+        private var prev : LDRNode? = null
+
+        init {
+            addNeighbor()
+        }
+
+        fun addNeighbor() {
+            if (i < NODES - 1) {
+                next = LDRNode(i + 1)
+                next?.prev = this
+            }
+        }
+
+        fun startUpdating(startcb : () -> Unit) {
+            state.startUpdating(startcb)
+        }
+
+        fun update(stopcb : (Float) -> Unit) {
+            state.update(stopcb)
+        }
+
+        fun getNext(dir : Int, cb : () -> Unit) : LDRNode {
+            var curr : LDRNode? = prev
+            if (dir == 1) {
+                curr = next
+            }
+            if (curr != null) {
+                return curr
+            }
+            cb()
+            return this
         }
     }
 }
