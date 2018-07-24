@@ -9,6 +9,7 @@ import android.graphics.Canvas
 import android.view.View
 import android.view.MotionEvent
 import android.content.Context
+import android.graphics.Color
 
 val NODES : Int = 5
 
@@ -125,6 +126,11 @@ class LineDoubleRotView(ctx : Context) : View(ctx) {
             }
             cb()
             return this
+        }
+
+        fun draw(canvas : Canvas, paint : Paint) {
+            paint.color = Color.parseColor("#0097A7")
+            canvas.drawRotLineNode(i, state.scale, paint)
         }
     }
 }
