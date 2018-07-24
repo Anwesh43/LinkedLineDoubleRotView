@@ -133,4 +133,28 @@ class LineDoubleRotView(ctx : Context) : View(ctx) {
             canvas.drawRotLineNode(i, state.scale, paint)
         }
     }
+
+    data class LinkedLDR(var i : Int) {
+
+        var curr : LDRNode = LDRNode(0)
+
+        var dir : Int = 1
+
+        fun update(stopcb : (Float) -> Unit) {
+            curr.update {
+                curr = curr.getNext(dir) {
+                    dir *= -1
+                }
+                stopcb(it)
+            }
+        }
+
+        fun startUpdating(startcb : () -> Unit) {
+            curr.startUpdating(startcb)
+        }
+
+        fun draw(canvas : Canvas, paint : Paint) {
+            curr.draw(canvas, paint)
+        }
+    }
 }
