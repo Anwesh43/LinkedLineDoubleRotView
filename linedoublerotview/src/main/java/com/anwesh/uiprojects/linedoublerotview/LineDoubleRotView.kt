@@ -12,6 +12,20 @@ import android.content.Context
 
 val NODES : Int = 5
 
+fun Canvas.drawRotLineNode(i : Int, scale : Float, paint : Paint) {
+    val w : Float = width.toFloat()
+    val h : Float = height.toFloat()
+    val gap : Float = Math.min(w, h) / NODES
+    val sc1 : Float = Math.min(0.5f, scale) * 2
+    val sc2 : Float = Math.min(0.5f, Math.max(0f, scale - 0.5f)) * 2
+    paint.strokeWidth = Math.min(w, h) / 60
+    paint.strokeCap = Paint.Cap.ROUND 
+    save()
+    translate(i * gap + gap/2, h/2)
+    drawLine(gap/2 * sc1, -h/3, gap/2 * sc2, h/3, paint)
+    restore()
+}
+
 class LineDoubleRotView(ctx : Context) : View(ctx) {
 
     override fun onDraw(canvas : Canvas) {
